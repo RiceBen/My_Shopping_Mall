@@ -2,13 +2,20 @@ class CarItem
     #存放 數量 與 商品序號
     attr_reader :product_id, :quantity
     
-      def initialize(product_id, quantity = 1)
+    def initialize(product_id, quantity = 1)
         @product_id = product_id
         @quantity = quantity
-      end
+    end
     
-      def increment(n = 1)
+    def increment(n = 1)
         @quantity += n
-      end
+    end
     
+    def product
+        Product.find_by(id: product_id) 
+    end
+
+    def total_price
+        return self.product.price * @quantity
+    end
 end

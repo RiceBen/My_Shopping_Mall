@@ -10,11 +10,11 @@ class Car
   def add_item(product_id)
     found_item = @items.find { |item| item.product_id == product_id }
     
-        if found_item
-          found_item.increment
-        else
-          @items << CarItem.new(product_id)
-        end
+    if found_item
+      found_item.increment
+    else
+      @items << CarItem.new(product_id)
+    end
   end
 
   def items
@@ -24,5 +24,14 @@ class Car
   #判斷購物車是否為空
   def empty?
     return @items.empty?
+  end
+
+  def total_amount
+    
+    result = @items.reduce(0) { |sum, item| 
+      sum += item.total_price 
+    }
+    
+    return result
   end
 end
