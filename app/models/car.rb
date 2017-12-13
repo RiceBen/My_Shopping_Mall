@@ -27,11 +27,22 @@ class Car
   end
 
   def total_amount
-    
     result = @items.reduce(0) { |sum, item| 
       sum += item.total_price 
     }
     
-    return result
+  case 
+    when xmas?
+      if result >= 1000
+        return result * 0.9
+      end
+    else
+      return result
+    end
+  end
+
+private
+  def xmas?
+    Time.now.month == 12 && Time.now.day == 25
   end
 end
