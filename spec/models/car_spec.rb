@@ -44,9 +44,30 @@ RSpec.describe Car, type: :model do
       end
     end
 
-    # 進階功能
-    # 可以將購物車內容轉換成 Hash 並存到 Session 裡。
-    # 也可以存放在 Session 的內容（Hash 格式），還原成購物車的內容。
+    context "進階功能" do
+      it "可以將購物車內容轉換成 JSON 並存到 Session 裡。" do
+        3.times { car.add_item 1 }
+        5.times { car.add_item 2 }
+  
+        expect(car.serialize).to eq car_hash
+      end
+    end
+    
+    it "也可以存放在 Session 的內容（JSON 格式），還原成購物車的內容。" do
+      car = Car.from_hash(car_hash)
+      
+            expect(car.items.count).to be 2
+            expect(car.items.first.quantity).to be 3
+    end
+private
+    def car_hash
+      {
+        "items" => [
+          {"product_id" => 1, "quantity" => 3},
+          {"product_id" => 2, "quantity" => 5}
+        ]
+      }
+    end
 
   end
 end
