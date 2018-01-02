@@ -1,0 +1,18 @@
+<h1>結帳</h1>
+<table>
+    <td>品項</td>
+    <td>數量</td>
+    <td>單價</td>
+    <td>小計</td>
+</table>
+<% current_car.items.each do |item|%>
+<tr>
+    <td><%= item.product.title%></td>
+    <td><%= item.quantity%></td>
+    <td><%= item.product.price%></td>
+    <td><%= item.total_price%></td>
+</tr>
+<% end %>
+<tr>
+    <%= current_car.total_amount%>
+</tr>
